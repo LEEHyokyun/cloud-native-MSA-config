@@ -40,7 +40,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, beans, httpexchanges
+        include: refresh, health, beans, httpexchanges
 
 logging:
   level:
