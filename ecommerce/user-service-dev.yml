@@ -36,16 +36,6 @@ spring:
 #      host: localhost
 #      port: 6379
 
-management:
-  endpoint:
-    health:
-      show-details: always
-      show-components: always
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans, httpexchanges
-
 logging:
   level:
     org.springframework.batch.item.database: DEBUG
