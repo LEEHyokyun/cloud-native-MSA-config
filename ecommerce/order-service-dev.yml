@@ -20,7 +20,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3307/orders #cloud-native-msa-user-mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: '{cipher}c8585bb673a7174ec09100d127dc747a2e2e4940428462ff53b1a10231113df4' # root
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
