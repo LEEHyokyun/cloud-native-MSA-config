@@ -1,12 +1,12 @@
-server:
-  port: 60001 #Spring Cloud - Eureka 기본 서버포트
+# server:
+#   port: 60010 #Spring Cloud - Eureka 기본 서버포트
 
 eureka:
   instance:
     hostname: localhost
     #hostname: localhost
     #prefer-ip-address: true
-    instance-id: ${spring.application.name}
+    instance-id: ${spring.application.name}#${server.port}
   client:
     register-with-eureka: true #Cluster 환경에서 본인의 서버 주소를 default 도메인의 다른 서버에 본인의 주소를 알림, 단일 서버에서는 false
     fetch-registry: true #메모리에 올려진 레지스트리 목록을 주기적으로 갱신, 클러스터 환경일 경우 true 필요
@@ -16,11 +16,11 @@ eureka:
 spring:
   application:
     name: order-service
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3307/orders #cloud-native-msa-user-mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: '{cipher}c8585bb673a7174ec09100d127dc747a2e2e4940428462ff53b1a10231113df4' # root
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3307/orders #cloud-native-msa-user-mysql
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: '{cipher}c8585bb673a7174ec09100d127dc747a2e2e4940428462ff53b1a10231113df4' # root
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
