@@ -42,9 +42,12 @@ external:
     base-url: http://ORDER-SERVICE   # http://localhost:60000
     read-order-of-user-url: http://ORDER-SERVICE/orders/%s # http://localhost:60000
 
+# 로깅 레벨
 logging:
   level:
     org.springframework.batch.item.database: DEBUG
+    com.msa.user.config.order: DEBUG
 
+# etc
 greeting:
   message: Welcome to User Micro Service.
