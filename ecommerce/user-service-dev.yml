@@ -36,6 +36,24 @@ spring:
 #      host: localhost
 #      port: 6379
 
+# Resilience4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      ORDER_OF_ONE_USER:
+        slidingWindowSize: 5 # 5mot
+        slidingWindowType: COUNT_BASED # sliding window type
+        failureRateThreshold: 10 # 10%
+        waitDurationInOpenState: 1s # open for 1s
+        permittedNumberOfCallsInHalfOpenState: 3 #Open > Half open일때 테스트 요청 개수
+  bulkhead:
+    instances:
+      ORDER_OF_ONE_USER:
+        maxConcurrentCalls: 5 # bulkhead slots
+        maxWaitDuration: 0 # bulkhead fail fast
+
+# No TimeLimiter
+
 # 환경변수
 external:
   order-service:
