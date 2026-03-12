@@ -1,0 +1,19 @@
+# prometheus-grafana-infra
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../prometheus/prometheus-dev.yml:/etc/prometheus/prometheus.yml #서버 실행 시 내부 설정이 아닌 Customized 설정을 읽어야 함(*상대경로)
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml" #최초 동작
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
