@@ -1,11 +1,13 @@
 spring:
   rabbitmq:
-    host: localhost
+    host: rabbitmq # docker
+#    host: localhost
     port: 5672
     username: guest
     password: '{cipher}05dba04b20c5e9493ea22b354f0b98ce437d268421dece3ff9a9221b05069fc2' # guest
   kafka:
-    bootstrap-servers: localhost:9092 # kafka cluster 환경 중 Broker init 환경 지정
+    bootstrap-servers: kafka:9092 # kafka cluster 환경 중 Broker init 환경 지정
+#    bootstrap-servers: localhost:9092 # kafka cluster 환경 중 Broker init 환경 지정
 
 management:
   endpoint:
