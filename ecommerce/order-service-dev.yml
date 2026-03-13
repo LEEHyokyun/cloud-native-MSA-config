@@ -16,11 +16,15 @@ eureka:
 spring:
   application:
     name: order-service
-#  datasource:
-#    url: jdbc:mysql://127.0.0.1:3307/orders #cloud-native-msa-user-mysql
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: '{cipher}c8585bb673a7174ec09100d127dc747a2e2e4940428462ff53b1a10231113df4' # root
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/orders #cloud-native-msa-user-mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: '{cipher}c8585bb673a7174ec09100d127dc747a2e2e4940428462ff53b1a10231113df4' # root
+  kafka:
+    bootstrap-servers: localhost:9092 # for producer
+    producer: #직렬화 설정없으면 기본 String to String
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
