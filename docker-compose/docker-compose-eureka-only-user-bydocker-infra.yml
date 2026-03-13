@@ -1,0 +1,118 @@
+services:
+
+  eureka:
+    image: leehyokyun/cloud-native-msa-init:1.0
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - eureka-only-user-bydocker-network
+
+  config-server:
+    image: leehyokyun/cloud-native-msa-config-server:1.0
+    container_name: config-server
+    depends_on:
+      - eureka
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - eureka-only-user-bydocker-network
+
+  gateway:
+    image: leehyokyun/cloud-native-msa-gateway:1.0
+    container_name: gateway
+    depends_on:
+      - config-server
+      - eureka
+    ports:
+      - "8000:8000"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - eureka-only-user-bydocker-network
+
+  user-service:
+    image: leehyokyun/cloud-native-msa-user:1.0
+    container_name: user-service
+    depends_on:
+      - mysql-user
+      - config-server
+      - eureka
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - eureka-only-user-bydocker-network
+
+  order-service-1:
+    image: leehyokyun/cloud-native-msa-order:1.0
+    container_name: order-service-1
+    depends_on:
+      - mysql-order
+      - config-server
+      - eureka
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SERVER_PORT=60010
+    networks:
+      - eureka-only-user-bydocker-network
+
+  order-service-2:
+    image: leehyokyun/cloud-native-msa-order2:1.0
+    container_name: order-service-2
+    depends_on:
+      - mysql-order
+      - config-server
+      - eureka
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SERVER_PORT=60011
+    networks:
+      - eureka-only-user-bydocker-network
+
+  mysql-user:
+    image: mysql:8.0.42
+    container_name: mysql-user
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users
+    ports:
+      - "3306:3306"
+    networks:
+      - eureka-only-user-bydocker-network
+
+  mysql-order:
+    image: mysql:8.0.42
+    container_name: mysql-order
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: orders
+    ports:
+      - "3307:3306"
+    networks:
+      - eureka-only-user-bydocker-network
+
+  mysql-product:
+    image: mysql:8.0.42
+    container_name: mysql-product
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: products
+    ports:
+      - "3308:3306"
+    networks:
+      - eureka-only-user-bydocker-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - eureka-only-user-bydocker-network
+
+networks:
+    eureka-only-user-bydocker-network:
+      driver: bridge
