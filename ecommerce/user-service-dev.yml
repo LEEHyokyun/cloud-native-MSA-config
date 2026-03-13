@@ -3,7 +3,7 @@ server:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: user-service # "실제 호출 시 " -> prefer ip
     #hostname: localhost
     #prefer-ip-address: true
     instance-id: ${spring.application.name}
