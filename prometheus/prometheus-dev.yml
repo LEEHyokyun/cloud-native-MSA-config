@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 10s #10초마다 프로메테우스 서버 측에서 데이터 scrap
+
+scrape_configs: #gateway에 가해지는 부하를 기반으로 확인
+  - job_name: "user-service"
+    metrics_path: "user/actuator/prometheus"
+    static_configs:
+      - targets: ["host.docker.internal:8000"] # host.docker.internal
+
+  - job_name: "order1-service"
+    metrics_path: "order/actuator/prometheus"
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
+  - job_name: "order2-service"
+    metrics_path: "order/actuator/prometheus"
+    static_configs:
+      - targets: ["host.docker.internal:8000"]
